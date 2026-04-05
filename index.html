@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+  Alex_A Neural Network Input Grid #13
+  Reference: Eng. Alex Amaral (AB&C Engineering Systems, LLC)
+  Prepared with Visual Studio Code + GitHub Copilot + GitHub
+  Date: 2026-04-05
+
+  This page is the presentation layer for a small educational ANN-style
+  digit-recognition demo. The left panel captures a 28×28 handwritten input,
+  while the right panel visualizes how that input propagates through a
+  simplified network representation.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANN Input Grid Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Application header: introduces the experiment and the learning goal. -->
+    <header class="hero">
+      <div>
+        <span class="eyebrow">Input Grid Test</span>
+        <h1>Alex_A Neural Network Input Grid #13</h1>
+        <p>Draw on the canvas below to test the input grid functionality.</p>
+      </div>
+    </header>
+
+    <!-- Two-column instructional layout: manual input on the left, ANN visualization on the right. -->
+    <section class="layout-row">
+      <!-- Input panel: a learner draws a digit and immediately sees its intensity map and score. -->
+      <div class="panel card input-panel">
+        <h2>Input Grid (28×28 MNIST Matrix)</h2>
+        <div class="input-wrapper">
+          <canvas id="inputCanvas" width="336" height="336"></canvas>
+          <div class="grid-info">28×28 pixel matrix · black = high · gray = medium · white = low</div>
+          <div class="input-hint">Draw slowly to see MNIST-style grayscale pixels form the digit for the network.</div>
+        </div>
+        <div class="button-row">
+          <button id="clearButton">Clear</button>
+        </div>
+        <div class="stats-card">
+          <div>
+            <span>Input Energy</span>
+            <strong id="inputEnergy">0.000</strong>
+          </div>
+          <div>
+            <span>Top Output</span>
+            <strong id="topOutput">None</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Network panel: shows an ANN-style interpretation of the same handwritten signal. -->
+      <div class="panel card network-panel">
+        <h2>Network Visualization</h2>
+        <div class="network-frame">
+          <canvas id="networkCanvas" width="1200" height="750"></canvas>
+        </div>
+        <div class="legend-row">
+          <span>Input: 784 neurons</span>
+          <span>Hidden 1: 50 neurons</span>
+          <span>Hidden 2: 50 neurons</span>
+          <span>Output: 10 neurons</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- The JavaScript controller performs sampling, analysis, and live visualization. -->
+  <script src="visualize.js"></script>
+</body>
+</html>

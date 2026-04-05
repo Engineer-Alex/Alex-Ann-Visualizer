@@ -1,0 +1,270 @@
+/*
+  Alex_A Neural Network Input Grid #13
+  Reference: Eng. Alex Amaral (AB&C Engineering Systems, LLC)
+  Prepared with Visual Studio Code + GitHub Copilot + GitHub
+  Date: 2026-04-05
+
+  This stylesheet supports the educational presentation of the project.
+  The visual language intentionally emphasizes contrast, clarity, and
+  network-like glow effects so that learners can follow the input and
+  activation flow with minimal distraction.
+*/
+
+/* Design tokens: reusable colors, borders, and glow accents for the full UI. */
+:root {
+  color-scheme: dark;
+  --bg: #08101d;
+  --surface: rgba(14, 23, 38, 0.95);
+  --surface-strong: rgba(18, 34, 56, 0.95);
+  --border: rgba(140, 163, 190, 0.16);
+  --text: #e8eef7;
+  --muted: #8aa0bf;
+  --accent: #4fd1ff;
+  --accent-strong: #5cc3ff;
+  --glow: rgba(95, 205, 255, 0.22);
+}
+
+/* Global reset: ensures consistent box sizing across the interface. */
+* {
+  box-sizing: border-box;
+}
+
+/* Page foundation: dark academic theme with a subtle radial highlight. */
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, rgba(79, 209, 255, 0.14), transparent 28%),
+              linear-gradient(180deg, #04101c 0%, #07101b 100%);
+  color: var(--text);
+}
+
+body {
+  padding: 32px;
+}
+
+/* Main content wrapper: keeps wide visualizations centered on large displays. */
+.app-shell {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* Hero banner: introductory framing for the experiment and its purpose. */
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 24px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  background: rgba(8, 16, 29, 0.90);
+  border-radius: 28px;
+  box-shadow: 0 28px 120px rgba(0, 0, 0, 0.20);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero h1 {
+  margin: 8px 0 12px;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Two-column teaching layout: drawing workspace first, network view second. */
+.layout-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+}
+
+/* Shared card styling for both the input and network panels. */
+.panel {
+  border-radius: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+  padding: 24px;
+}
+
+/* Input panel typography and spacing. */
+.input-panel h2 {
+  margin: 0 0 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* The drawing canvas is intentionally pixelated to reveal the 28×28 matrix structure. */
+#inputCanvas {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 16px;
+  background: #0f1a2b;
+  border: 2px solid rgba(95, 175, 255, 0.45);
+  cursor: crosshair;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(79, 209, 255, 0.08);
+}
+
+/* Small explanatory note describing how pixel intensity maps to input energy. */
+.grid-info {
+  margin-top: 12px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  color: #b7d8ff;
+  background: rgba(79, 209, 255, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(79, 209, 255, 0.22);
+  text-align: center;
+}
+
+/* A secondary hint supports slow drawing for clearer educational observation. */
+.input-hint {
+  margin-top: 8px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Button row groups present and future controls in a predictable location. */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+/* Live metrics panel: communicates energy and the current top prediction. */
+.stats-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.stats-card div {
+  display: grid;
+  gap: 6px;
+}
+
+.stats-card span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.stats-card strong {
+  color: var(--text);
+  font-size: 1.18rem;
+}
+
+/* Buttons use soft motion to make interaction feel responsive but not distracting. */
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 16px 40px rgba(79, 209, 255, 0.22);
+}
+
+button:not(.primary) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+/* Network panel heading mirrors the input panel for visual balance. */
+.network-panel h2 {
+  margin: 0 0 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* Frame around the network view to isolate the animated neuron canvas. */
+.network-frame {
+  position: relative;
+  border-radius: 16px;
+  background: #0a121e;
+  overflow: hidden;
+  border: 2px solid var(--border);
+}
+
+#networkCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Legend summarizing the conceptual network sizes shown to the learner. */
+.legend-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+/* Tablet layout: stack the panels vertically when horizontal space is limited. */
+@media (max-width: 1200px) {
+  .layout-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile layout: reduce padding and center the hero content for readability. */
+@media (max-width: 768px) {
+  body {
+    padding: 16px;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+}
