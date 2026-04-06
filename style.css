@@ -1,16 +1,12 @@
 /*
-  Alex_A Neural Network Input Grid #13
-  Reference: Eng. Alex Amaral (AB&C Engineering Systems, LLC)
-  Prepared with Visual Studio Code + GitHub Copilot + GitHub
-  Date: 2026-04-05
+  Alex_A Neural Network MNIST Input Grid #1
+  Eng. Alex Amaral - AB&C Engineering Systems, LLC
+  April 06 2026
 
-  This stylesheet supports the educational presentation of the project.
-  The visual language intentionally emphasizes contrast, clarity, and
-  network-like glow effects so that learners can follow the input and
-  activation flow with minimal distraction.
+  This stylesheet controls the visual appearance of the educational demo.
+  The goal is to keep the page clean, readable, and easy to record on screen.
 */
 
-/* Design tokens: reusable colors, borders, and glow accents for the full UI. */
 :root {
   color-scheme: dark;
   --bg: #08101d;
@@ -21,15 +17,12 @@
   --muted: #8aa0bf;
   --accent: #4fd1ff;
   --accent-strong: #5cc3ff;
-  --glow: rgba(95, 205, 255, 0.22);
 }
 
-/* Global reset: ensures consistent box sizing across the interface. */
 * {
   box-sizing: border-box;
 }
 
-/* Page foundation: dark academic theme with a subtle radial highlight. */
 html, body {
   margin: 0;
   min-height: 100%;
@@ -40,26 +33,25 @@ html, body {
 }
 
 body {
-  padding: 32px;
+  padding: 20px;
 }
 
-/* Main content wrapper: keeps wide visualizations centered on large displays. */
 .app-shell {
   max-width: 1800px;
   margin: 0 auto;
 }
 
-/* Hero banner: introductory framing for the experiment and its purpose. */
+/* Header area at the top of the page */
 .hero {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
-  padding: 22px 24px;
-  margin-bottom: 24px;
+  gap: 18px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
   border: 1px solid var(--border);
   background: rgba(8, 16, 29, 0.90);
-  border-radius: 28px;
+  border-radius: 24px;
   box-shadow: 0 28px 120px rgba(0, 0, 0, 0.20);
 }
 
@@ -72,26 +64,24 @@ body {
 }
 
 .hero h1 {
-  margin: 8px 0 12px;
-  font-size: 2.5rem;
+  margin: 6px 0 10px;
+  font-size: 2.25rem;
   font-weight: 700;
 }
 
 .hero p {
   margin: 0;
   color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.98rem;
+  line-height: 1.45;
 }
 
-/* Two-column teaching layout: drawing workspace first, network view second. */
 .layout-row {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 24px;
 }
 
-/* Shared card styling for both the input and network panels. */
 .panel {
   border-radius: 28px;
   background: var(--surface);
@@ -100,22 +90,22 @@ body {
 }
 
 .card {
-  padding: 24px;
+  padding: 20px;
 }
 
-/* Input panel typography and spacing. */
-.input-panel h2 {
-  margin: 0 0 20px;
-  font-size: 1.8rem;
+.input-panel h2,
+.network-panel h2 {
+  margin: 0 0 16px;
+  font-size: 1.65rem;
   font-weight: 600;
 }
 
+/* Left-side drawing panel and its helper text */
 .input-wrapper {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-/* The drawing canvas is intentionally pixelated to reveal the 28×28 matrix structure. */
 #inputCanvas {
   width: 100%;
   max-width: 420px;
@@ -131,7 +121,6 @@ body {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 0 1px rgba(79, 209, 255, 0.08);
 }
 
-/* Small explanatory note describing how pixel intensity maps to input energy. */
 .grid-info {
   margin-top: 12px;
   padding: 8px 14px;
@@ -143,7 +132,6 @@ body {
   text-align: center;
 }
 
-/* A secondary hint supports slow drawing for clearer educational observation. */
 .input-hint {
   margin-top: 8px;
   padding: 12px 14px;
@@ -154,24 +142,25 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Button row groups present and future controls in a predictable location. */
 .button-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
-/* Live metrics panel: communicates energy and the current top prediction. */
 .stats-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  padding: 18px;
+  gap: 12px;
+  padding: 16px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
+}
+
+.stats-card--quad {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .stats-card div {
@@ -186,10 +175,9 @@ body {
 
 .stats-card strong {
   color: var(--text);
-  font-size: 1.18rem;
+  font-size: 1.05rem;
 }
 
-/* Buttons use soft motion to make interaction feel responsive but not distracting. */
 button {
   border: none;
   border-radius: 999px;
@@ -197,11 +185,17 @@ button {
   color: white;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
 }
 
 button:hover {
   transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+  transform: none;
 }
 
 button.primary {
@@ -214,14 +208,7 @@ button:not(.primary) {
   color: var(--text);
 }
 
-/* Network panel heading mirrors the input panel for visual balance. */
-.network-panel h2 {
-  margin: 0 0 20px;
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-/* Frame around the network view to isolate the animated neuron canvas. */
+/* Main ANN visualization canvas on the right */
 .network-frame {
   position: relative;
   border-radius: 16px;
@@ -236,7 +223,6 @@ button:not(.primary) {
   display: block;
 }
 
-/* Legend summarizing the conceptual network sizes shown to the learner. */
 .legend-row {
   display: flex;
   justify-content: space-between;
@@ -250,14 +236,170 @@ button:not(.primary) {
   flex-wrap: wrap;
 }
 
-/* Tablet layout: stack the panels vertically when horizontal space is limited. */
+.legend-row--side {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+}
+
+.legend-row--side span {
+  color: #d9ebff;
+}
+
+.legend-row--side strong {
+  color: #ffffff;
+}
+
+/* Compact rule-based baseline panel shown under the ANN */
+.heuristic-demo-card {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+}
+
+.heuristic-demo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.heuristic-demo-header h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.heuristic-demo-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.heuristic-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(86px, 1fr));
+  gap: 8px;
+  min-width: 320px;
+}
+
+.heuristic-summary div {
+  display: grid;
+  gap: 3px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.heuristic-summary span {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.heuristic-summary strong {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.heuristic-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.heuristic-feature {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.heuristic-feature-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  color: #d7ebff;
+}
+
+.mini-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.mini-bar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(126, 240, 165, 0.72), rgba(255, 222, 89, 0.9));
+}
+
+.heuristic-score-strip {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.heuristic-score {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.heuristic-score-bar {
+  position: relative;
+  width: 100%;
+  height: 36px;
+  border-radius: 7px;
+  overflow: hidden;
+  background: rgba(12, 20, 34, 0.96);
+  border: 1px solid rgba(232, 238, 247, 0.18);
+}
+
+.heuristic-score-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 214, 102, 0.95));
+}
+
+.heuristic-score-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.heuristic-score-value {
+  color: #d9ebff;
+  font-size: 0.68rem;
+}
+
+@media (max-width: 1400px) {
+  .heuristic-demo-header {
+    flex-direction: column;
+  }
+
+  .heuristic-summary {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
 @media (max-width: 1200px) {
   .layout-row {
     grid-template-columns: 1fr;
   }
 }
 
-/* Mobile layout: reduce padding and center the hero content for readability. */
 @media (max-width: 768px) {
   body {
     padding: 16px;
@@ -266,5 +408,17 @@ button:not(.primary) {
   .hero {
     flex-direction: column;
     text-align: center;
+  }
+
+  .stats-card--quad {
+    grid-template-columns: 1fr;
+  }
+
+  .heuristic-features {
+    grid-template-columns: 1fr;
+  }
+
+  .heuristic-score-strip {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <!--
-  Alex_A Neural Network Input Grid #13
-  Reference: Eng. Alex Amaral (AB&C Engineering Systems, LLC)
-  Prepared with Visual Studio Code + GitHub Copilot + GitHub
-  Date: 2026-04-05
+  Alex_A Neural Network MNIST Input Grid #1
+  Eng. Alex Amaral - AB&C Engineering Systems, LLC
+  April 06 2026
 
-  This page is the presentation layer for a small educational ANN-style
-  digit-recognition demo. The left panel captures a 28×28 handwritten input,
-  while the right panel visualizes how that input propagates through a
-  simplified network representation.
+  This page is an educational demo.
+  It lets a student draw a digit and then compare:
+  1) a real MNIST-trained ANN, and
+  2) a non-ANN rule-based baseline.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ANN Input Grid Test</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Alex_A Neural Network MNIST Input Grid #1</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mnist@1.1.0/dist/mnist.js"></script>
+  <script defer src="./visualize_v1.js"></script>
 </head>
 <body>
   <div class="app-shell">
-    <!-- Application header: introduces the experiment and the learning goal. -->
+    <!-- Main page title and short explanation -->
     <header class="hero">
       <div>
-        <span class="eyebrow">Input Grid Test</span>
-        <h1>Alex_A Neural Network Input Grid #13</h1>
-        <p>Draw on the canvas below to test the input grid functionality.</p>
+        <span class="eyebrow">Real MNIST Model</span>
+        <h1>Alex_A Neural Network MNIST Input Grid #1</h1>
+        <p>Draw on the canvas below to compare a real MNIST-trained model against the earlier heuristic version.</p>
       </div>
     </header>
 
-    <!-- Two-column instructional layout: manual input on the left, ANN visualization on the right. -->
+    <!-- Two-column layout: drawing area on the left, live visualization on the right -->
     <section class="layout-row">
-      <!-- Input panel: a learner draws a digit and immediately sees its intensity map and score. -->
+      <!-- Left panel: where the user draws the digit and reads the quick statistics -->
       <div class="panel card input-panel">
         <h2>Input Grid (28×28 MNIST Matrix)</h2>
         <div class="input-wrapper">
           <canvas id="inputCanvas" width="336" height="336"></canvas>
           <div class="grid-info">28×28 pixel matrix · black = high · gray = medium · white = low</div>
-          <div class="input-hint">Draw slowly to see MNIST-style grayscale pixels form the digit for the network.</div>
+          <div class="input-hint">Version #1 uses TensorFlow.js with real MNIST samples and keeps the same overall layout for side-by-side comparison.</div>
         </div>
         <div class="button-row">
+          <button id="trainButton" class="primary">Train / Reload MNIST Model</button>
           <button id="clearButton">Clear</button>
         </div>
-        <div class="stats-card">
+        <div class="stats-card stats-card--quad">
+          <div>
+            <span>Model Status</span>
+            <strong id="modelStatus">Loading…</strong>
+          </div>
+          <div>
+            <span>Test Accuracy</span>
+            <strong id="testAccuracy">—</strong>
+          </div>
           <div>
             <span>Input Energy</span>
             <strong id="inputEnergy">0.000</strong>
@@ -51,25 +62,46 @@
             <strong id="topOutput">None</strong>
           </div>
         </div>
+        <div class="legend-row legend-row--side">
+          <span><strong>Input:</strong> 784 pixel values</span>
+          <span><strong>Hidden 1:</strong> 64 units</span>
+          <span><strong>Hidden 2:</strong> 32 units</span>
+          <span><strong>Output:</strong> 10 digit probabilities</span>
+        </div>
       </div>
 
-      <!-- Network panel: shows an ANN-style interpretation of the same handwritten signal. -->
+      <!-- Right panel: ANN visualization plus the compact rule-based comparison -->
       <div class="panel card network-panel">
         <h2>Network Visualization</h2>
         <div class="network-frame">
           <canvas id="networkCanvas" width="1200" height="750"></canvas>
         </div>
-        <div class="legend-row">
-          <span>Input: 784 neurons</span>
-          <span>Hidden 1: 50 neurons</span>
-          <span>Hidden 2: 50 neurons</span>
-          <span>Output: 10 neurons</span>
+        <div class="heuristic-demo-card">
+          <div class="heuristic-demo-header">
+            <div>
+              <h3>Rule-Based Baseline Demo (not ANN)</h3>
+              <p>Same 28×28 drawing, evaluated by fixed features and templates instead of learned ANN weights.</p>
+            </div>
+            <div class="heuristic-summary">
+              <div>
+                <span>Best Guess</span>
+                <strong id="heuristicBest">—</strong>
+              </div>
+              <div>
+                <span>Confidence</span>
+                <strong id="heuristicConfidence">—</strong>
+              </div>
+              <div>
+                <span>Runner-up</span>
+                <strong id="heuristicSecondary">—</strong>
+              </div>
+            </div>
+          </div>
+          <div class="heuristic-features" id="heuristicFeatures"></div>
+          <div class="heuristic-score-strip" id="heuristicDigitScores"></div>
         </div>
       </div>
     </section>
   </div>
-
-  <!-- The JavaScript controller performs sampling, analysis, and live visualization. -->
-  <script src="visualize.js"></script>
 </body>
 </html>
